@@ -7,7 +7,7 @@ import PullRequestData from "../../shared/opensource/pull_requests.json";
 class PullRequestChart extends Component {
   render() {
     const data = {
-      labels: ["Open", "Merged", "Closed"],
+      labels: ["開啟中", "已合併", "已關閉"],
       datasets: [
         {
           data: [
@@ -24,7 +24,7 @@ class PullRequestChart extends Component {
     return (
       <div className="pr-chart">
         <Fade bottom duration={2000} distance="20px">
-          <h2 className="pr-chart-header">Pull Request Distribution</h2>
+          <h2 className="pr-chart-header">合併請求分佈</h2>
         </Fade>
         <Doughnut
           data={data}
