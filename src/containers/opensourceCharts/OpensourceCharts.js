@@ -12,7 +12,7 @@ class OpensourceCharts extends Component {
         <div className="os-charts-header-div">
           <Fade bottom duration={2000} distance="20px">
             <h1 className="os-charts-header" style={{ color: theme.text }}>
-              Contributions
+              開源貢獻
             </h1>
           </Fade>
         </div>

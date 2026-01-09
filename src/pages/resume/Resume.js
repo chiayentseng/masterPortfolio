@@ -3,7 +3,6 @@ import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import { Fade } from "react-reveal";
 import "./Resume.css";
-import myResumePdf from "../../assets/docs/Ashutosh_Hathidara_Resume_ML.pdf";
 import { Document, Page, pdfjs } from "react-pdf";
 import Button from "../../components/button/Button";
 import { greeting } from "../../portfolio";
@@ -58,7 +57,7 @@ export default class ResumePage extends Component {
   onDocumentLoadError = (error) => {
     console.error("Error loading PDF:", error);
     this.setState({
-      error: "Failed to load resume. Please try again later.",
+      error: "履歷載入失敗，請稍後再試。",
       isLoading: false,
     });
   };
@@ -78,6 +77,7 @@ export default class ResumePage extends Component {
   render() {
     const theme = this.props.theme;
     const { pageWidth, numPages, currentPage, isLoading, error } = this.state;
+    const hasResume = Boolean(greeting.resumeLink);
 
     return (
       <div className="resume-main">
@@ -86,25 +86,31 @@ export default class ResumePage extends Component {
           <Fade bottom duration={2000} distance="40px">
             <div>
               {/* Download Button */}
-              <div className="download-btn">
-                <Button
-                  text="📃 Download Resume"
-                  newTab={true}
-                  href={greeting.resumeLink}
-                  theme={theme}
-                />
-              </div>
+              {hasResume ? (
+                <div className="download-btn">
+                  <Button
+                    text="📃 下載履歷"
+                    newTab={true}
+                    href={greeting.resumeLink}
+                    theme={theme}
+                  />
+                </div>
+              ) : (
+                <div className="resume-loading">
+                  <p>履歷檔案尚未提供。</p>
+                </div>
+              )}
 
               {/* Loading State */}
-              {isLoading && !error && (
+              {hasResume && isLoading && !error && (
                 <div className="resume-loading">
                   <div className="loading-spinner"></div>
-                  <p>Loading resume...</p>
+                  <p>履歷載入中...</p>
                 </div>
               )}
 
               {/* Error State */}
-              {error && (
+              {hasResume && error && (
                 <div className="resume-error">
                   <svg
                     className="error-icon"
@@ -125,24 +131,24 @@ export default class ResumePage extends Component {
                   <button
                     onClick={() => window.location.reload()}
                     className="retry-btn"
-                    aria-label="Reload resume"
+                    aria-label="重新載入履歷"
                   >
-                    Try Again
+                    重新嘗試
                   </button>
                 </div>
               )}
 
               {/* PDF Document */}
-              {!error && (
+              {hasResume && !error && (
                 <div className="resume-page">
                   <Document
-                    file={myResumePdf}
+                    file={greeting.resumeLink}
                     onLoadSuccess={this.onDocumentLoadSuccess}
                     onLoadError={this.onDocumentLoadError}
                     loading={
                       <div className="resume-loading">
                         <div className="loading-spinner"></div>
-                        <p>Loading resume...</p>
+                        <p>履歷載入中...</p>
                       </div>
                     }
                   >
@@ -166,20 +172,20 @@ export default class ResumePage extends Component {
                         onClick={this.goToPreviousPage}
                         disabled={currentPage === 1}
                         className="pagination-btn"
-                        aria-label="Previous page"
+                        aria-label="上一頁"
                       >
-                        ← Previous
+                        ← 上一頁
                       </button>
                       <span className="page-info" aria-live="polite">
-                        Page {currentPage} of {numPages}
+                        第 {currentPage} 頁，共 {numPages} 頁
                       </span>
                       <button
                         onClick={this.goToNextPage}
                         disabled={currentPage === numPages}
                         className="pagination-btn"
-                        aria-label="Next page"
+                        aria-label="下一頁"
                       >
-                        Next →
+                        下一頁 →
                       </button>
                     </div>
                   )}
@@ -188,7 +194,7 @@ export default class ResumePage extends Component {
             </div>
           </Fade>
         </div>
-        <Footer theme={theme} onToggle={this.props.onToggle}/>
+        <Footer theme={theme} onToggle={this.props.onToggle} />
         <TopButton theme={theme} />
       </div>
     );

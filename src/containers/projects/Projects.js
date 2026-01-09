@@ -11,7 +11,9 @@ export default function Projects() {
   const [repo, setrepo] = useState([]);
 
   useEffect(() => {
-    getRepoData();
+    if (openSource.githubUserName && openSource.githubConvertedToken) {
+      getRepoData();
+    }
   }, []);
 
   function getRepoData() {
@@ -68,18 +70,20 @@ export default function Projects() {
 
   return (
     <div className="main" id="opensource">
-      <h1 className="project-title">Open Source Projects</h1>
+      <h1 className="project-title">開源專案</h1>
       <div className="repo-cards-div-main">
         {repo.map((v, i) => {
           return <GithubRepoCard repo={v} key={v.node.id} />;
         })}
       </div>
-      <Button
-        text={"More Projects"}
-        className="project-button"
-        href={greeting.githubProfile}
-        newTab={true}
-      />
+      {greeting.githubProfile && (
+        <Button
+          text={"更多專案"}
+          className="project-button"
+          href={greeting.githubProfile}
+          newTab={true}
+        />
+      )}
     </div>
   );
 }

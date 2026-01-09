@@ -44,13 +44,11 @@ class Contact extends Component {
                   {ContactData["description"]}
                 </p>
                 <SocialMedia theme={theme} />
-                <div className="resume-btn-div">
-                  <Button
-                    text="See My Resume"
-                    href="/resume"
-                    theme={theme}
-                  />
-                </div>
+                {contactPageData.contactSection.resumeLink && (
+                  <div className="resume-btn-div">
+                    <Button text="查看履歷" href="/resume" theme={theme} />
+                  </div>
+                )}
               </div>
             </div>
           </Fade>
@@ -66,14 +64,16 @@ class Contact extends Component {
                 >
                   {blogSection["subtitle"]}
                 </p>
-                <div className="blogsite-btn-div">
-                  <Button
-                    text="Visit My Blogsite"
-                    newTab={true}
-                    href={blogSection.link}
-                    theme={theme}
-                  />
-                </div>
+                {blogSection.link && (
+                  <div className="blogsite-btn-div">
+                    <Button
+                      text="造訪部落格"
+                      newTab={true}
+                      href={blogSection.link}
+                      theme={theme}
+                    />
+                  </div>
+                )}
               </div>
               <div className="blog-heading-img-div">
                 {/* <img
@@ -118,14 +118,16 @@ class Contact extends Component {
                 >
                   {phoneSection["subtitle"]}
                 </p>
-                <div className="address-btn-div">
-                  <Button
-                    text="Visit on Google Maps"
-                    newTab={true}
-                    href={addressSection.location_map_link}
-                    theme={theme}
-                  />
-                </div>
+                {addressSection.location_map_link && (
+                  <div className="address-btn-div">
+                    <Button
+                      text="在 Google 地圖查看"
+                      newTab={true}
+                      href={addressSection.location_map_link}
+                      theme={theme}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </Fade>

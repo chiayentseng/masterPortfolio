@@ -7,7 +7,7 @@ import IssueData from "../../shared/opensource/issues.json";
 class IssueChart extends Component {
   render() {
     const data = {
-      labels: ["Open", "Closed"],
+      labels: ["開啟中", "已關閉"],
       datasets: [
         {
           data: [IssueData["open"], IssueData["closed"]],
@@ -20,7 +20,7 @@ class IssueChart extends Component {
     return (
       <div className="issue-chart">
         <Fade bottom duration={2000} distance="20px">
-          <h2 className="issue-chart-header">Issue Distribution</h2>
+          <h2 className="issue-chart-header">問題分佈</h2>
         </Fade>
         <Doughnut
           data={data}

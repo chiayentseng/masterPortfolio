@@ -54,13 +54,15 @@ class Projects extends Component {
             return <GithubRepoCard repo={repo} theme={theme} />;
           })}
         </div>
-        <Button
-          text={"More Projects"}
-          className="project-button"
-          href={greeting.githubProfile}
-          newTab={true}
-          theme={theme}
-        />
+        {greeting.githubProfile && (
+          <Button
+            text={"更多專案"}
+            className="project-button"
+            href={greeting.githubProfile}
+            newTab={true}
+            theme={theme}
+          />
+        )}
 
         {/* Publications  */}
         {publications.data.length > 0 ? (
